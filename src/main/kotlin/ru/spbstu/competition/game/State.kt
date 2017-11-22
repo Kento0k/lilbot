@@ -9,16 +9,16 @@ enum class RiverState{ Our, Enemy, Neutral }
 class State {
 
     class Pairs(val x: Double?, val y: Double?)
-    class Component {
-        var sited = mutableSetOf<Int>()
-    }
+//    class Component {
+//        var sited = mutableSetOf<Int>()
+//    }
 
     val rivers = mutableMapOf<River, RiverState>()
     var mines = listOf<Int>()
     var myId = -1
 
     var coordinates = mutableMapOf<Int, Pairs>()
-    var linkComponents = mutableSetOf<Component>()
+    //var linkComponents = mutableSetOf<Component>()
 
     var currentWay = mutableSetOf<River>()
 

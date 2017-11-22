@@ -1,28 +1,25 @@
 package ru.spbstu.competition.protocol.data
 
-import ru.spbstu.competition.game.RiverState
 import ru.spbstu.competition.game.State
 
-class Search{
+class Search {
 
-    fun heuristic(a: Int, b: Int, state: State): Double {
+    private fun heuristic(a: Int, b: Int, state: State): Double {
         return Math.abs(state.coordinates[a]!!.x!! - state.coordinates[b]!!.x!!) + Math.abs(state.coordinates[a]!!.y!! - state.coordinates[b]!!.y!!)
     }
 
-    fun aStar(state: State, argSource: Int, argTarget: Int): MutableSet<River> {
-        var foundedWay = mutableSetOf<River>()
+    fun aStar(state: State, argSource: Int, argTarget: Int): MutableMap<Int, Int> {
 
-        var INFINITE = 1000000.0
+        val INFINITE = 1000000.0
 
-        var priorityQueue = mutableMapOf<Int, Double>()
-        var cameFrom = mutableMapOf<Int, Int>()
-        var wayCost = mutableListOf(INFINITE)
+        val priorityQueue = mutableMapOf<Int, Double>()
+        val foundedWay = mutableMapOf<Int, Int>()
+        val wayCost = mutableListOf(INFINITE)
 
         priorityQueue.put(argSource, 0.0)
 
-        while(priorityQueue.size != 0) {
+        while(priorityQueue.isNotEmpty()) {
 
-            var current = null
             var minPriority = INFINITE
             var currSite: Int = argTarget
             for((x, y) in priorityQueue) {
@@ -43,12 +40,12 @@ class Search{
                     .toSet()
             for (site in neighborSites) {
                 if (site != currSite) {
-                    var newCost = wayCost[currSite] + 1
+                    val newCost = wayCost[currSite] + 1
                     if (newCost < wayCost[site]) {
                         wayCost[site] = newCost
-                        var priority = newCost + heuristic(argTarget, site, state)
+                        val priority = newCost + heuristic(argTarget, site, state)
                         priorityQueue.put(site, priority)
-                        cameFrom[site] = currSite
+                        foundedWay[site] = currSite
                     }
                 }
             }
