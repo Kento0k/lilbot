@@ -27,7 +27,7 @@ fun main(args: Array<String>) {
     val gameState = State()
     val intellect = Intellect(gameState, protocol)
 
-    protocol.handShake("Average Joe, yo!")
+    protocol.handShake("lilbot")
     val setupData = protocol.setup()
     gameState.init(setupData)
 
