@@ -57,8 +57,8 @@ fun main(args: Array<String>) {
             }
         }
 
-        println("Joe thinkin'")
+        println("lilbot thinkin'")
         intellect.makeMove()
-        println("Joe genius!")
+        println("lilbot genius!")
     }
 }
