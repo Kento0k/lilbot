@@ -20,7 +20,7 @@ class State {
     var coordinates = mutableMapOf<Int, Pairs>()
     //var linkComponents = mutableSetOf<Component>()
 
-    var currentWay = mutableSetOf<River>()
+    var currentWay = mutableMapOf<Int, Int>()
 
     fun init(setup: Setup) {
         myId = setup.punter

@@ -6,14 +6,6 @@ import ru.spbstu.competition.protocol.data.Search
 class Intellect(val state: State, val protocol: Protocol) {
 
     fun makeMove() {
-        // Joe is like super smart!
-        // Da best strategy ever!
-
-        // If there is a free river near a mine, take it!
-        val try0 = state.rivers.entries.find { (river, riverState) ->
-            riverState == RiverState.Neutral && (river.source in state.mines || river.target in state.mines)
-        }
-        if(try0 != null) return protocol.claimMove(try0.key.source, try0.key.target)
 
         if(state.currentWay.isEmpty()) {
 
@@ -80,6 +72,36 @@ class Intellect(val state: State, val protocol: Protocol) {
                 if (try4 != null) return protocol.claimMove(try4.key.source, try4.key.target)
 
 
+            }
+
+        }
+        else {
+
+            for (oneWay in state.currentWay) {
+                val try5 = state.rivers.entries.find { (river, riverState) ->
+                    riverState == RiverState.Neutral && (river.source in state.mines || river.target in state.mines)
+                            && (oneWay.key == river.source || oneWay.key == river.target
+                            || oneWay.value == river.source || oneWay.value == river.target)
+                }
+                if (try5 != null) {
+                    state.currentWay.remove(oneWay.key)
+                    return protocol.claimMove(try5.key.source, try5.key.target)
+                }
+                val ourSites = state
+                        .rivers
+                        .entries
+                        .filter { it.value == RiverState.Our }
+                        .flatMap { listOf(it.key.source, it.key.target) }
+                        .toSet()
+                val try6 = state.rivers.entries.find { (river, riverState) ->
+                    riverState == RiverState.Neutral && (river.source in ourSites && river.target in ourSites)
+                            && (oneWay.key == river.source || oneWay.key == river.target
+                            || oneWay.value == river.source || oneWay.value == river.target)
+                }
+                if (try6 != null) {
+                    state.currentWay.remove(oneWay.key)
+                    return protocol.claimMove(try6.key.source, try6.key.target)
+                }
             }
 
         }

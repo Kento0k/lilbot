@@ -21,13 +21,10 @@ object Arguments {
 fun main(args: Array<String>) {
     Arguments.use(args)
 
-    println("Hi, I am Average Joe, the ultimate punter!")
-
     // Протокол обмена с сервером
     val protocol = Protocol(Arguments.url, Arguments.port)
     // Состояние игрового поля
     val gameState = State()
-    // Джо очень умный чувак, вот его ум
     val intellect = Intellect(gameState, protocol)
 
     protocol.handShake("Average Joe, yo!")
