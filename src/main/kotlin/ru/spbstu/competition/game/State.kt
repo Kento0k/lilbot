@@ -8,11 +8,8 @@ enum class RiverState{ Our, Enemy, Neutral }
 
 class State {
     class Pairs(val x: Double?, val y: Double?)
-    class Component() {
+    class Component {
         var sited = mutableSetOf<Int>()
-        fun addSite(argSite: Int) {
-            sited.add(argSite)
-        }
     }
     val rivers = mutableMapOf<River, RiverState>()
     var mines = listOf<Int>()
@@ -27,7 +24,18 @@ class State {
         }
         for(river in setup.map.rivers) {
             rivers[river] = RiverState.Neutral
-
+            for(component in linkComponents) {
+                if(component.sited.contains(river.source) || component.sited.contains(river.target)) {
+                    component.sited.add(river.source)
+                    component.sited.add(river.target)
+                }
+                else {
+                    val newComponent = Component()
+                    newComponent.sited.add(river.source)
+                    newComponent.sited.add(river.target)
+                    linkComponents.add(newComponent)
+                }
+            }
         }
         for(mine in setup.map.mines) {
             mines += mine
