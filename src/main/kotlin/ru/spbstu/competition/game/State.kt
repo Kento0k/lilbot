@@ -9,16 +9,16 @@ enum class RiverState{ Our, Enemy, Neutral }
 class State {
 
     class Pairs(val x: Double?, val y: Double?)
-//    class Component {
-//        var sited = mutableSetOf<Int>()
-//    }
+    class Component {
+        var sited = mutableSetOf<Int>()
+    }
 
     val rivers = mutableMapOf<River, RiverState>()
     var mines = listOf<Int>()
     var myId = -1
 
     var coordinates = mutableMapOf<Int, Pairs>()
-    //var linkComponents = mutableSetOf<Component>()
+    var linkComponents = mutableSetOf<Component>()
 
     var currentWay = mutableSetOf<River>()
 
@@ -36,7 +36,7 @@ class State {
         //findComponents(setup.map.sites.size)
     }
 
-//    private fun depthSearch(argSite: Int, argComponent: Component, used: Array<Int?>) {
+//    private fun depthSearch(argSite: Int, argComponent: Component, used: MutableMap<Int, Int>) {
 //        used[argSite] = 1
 //        argComponent.sited.add(argSite)
 //        val neighborRivers = rivers
@@ -53,8 +53,8 @@ class State {
 //    }
 //
 //    private fun findComponents(size: Int) {
-//        val used = arrayOfNulls<Int>(size)
-//        for((index, value) in used.withIndex()) {
+//        val used = mutableMapOf<Int, Int>()
+//        for((index, value) in used) {
 //            if(value == null) {
 //                val newComponent = Component()
 //                depthSearch(index, newComponent, used)
