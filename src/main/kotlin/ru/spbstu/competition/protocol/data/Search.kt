@@ -1,5 +1,6 @@
 package ru.spbstu.competition.protocol.data
 
+import ru.spbstu.competition.game.RiverState
 import ru.spbstu.competition.game.State
 
 class Search {
@@ -35,7 +36,7 @@ class Search {
             val neighborSites = state
                     .rivers
                     .entries
-                    .filter { it.key.source == currSite || it.key.target == currSite }
+                    .filter { (it.key.source == currSite || it.key.target == currSite) && it.value == RiverState.Neutral }
                     .flatMap { listOf(it.key.source, it.key.target) }
                     .toSet()
             for (site in neighborSites) {

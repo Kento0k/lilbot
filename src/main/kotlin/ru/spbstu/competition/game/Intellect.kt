@@ -1,10 +1,9 @@
 package ru.spbstu.competition.game
 
 import ru.spbstu.competition.protocol.Protocol
+import ru.spbstu.competition.protocol.data.Search
 
 class Intellect(val state: State, val protocol: Protocol) {
-
-
 
     fun makeMove() {
         // Joe is like super smart!
@@ -19,10 +18,27 @@ class Intellect(val state: State, val protocol: Protocol) {
         if(state.currentWay.isEmpty()) {
 
             val mines = state.mines
+            val used = mutableSetOf<Int>()
+            var minWay = 1000000
+            var doWay = mutableMapOf<Int, Int>()
             for(currentMine in mines) {
+                used.add(currentMine)
                 for(lookMine in mines) {
-
+                    if(used.contains(lookMine))
+                        continue;
+                    val search = Search()
+                    val way = search.aStar(state, currentMine, lookMine)
+                    if(way.size != 0 && way.size < minWay) {
+                        minWay = way.size
+                        doWay = way
+                    }
                 }
+            }
+            if(doWay.size != 0) {
+                val try0 = state.rivers.entries.find { (river, riverState) ->
+                    riverState == RiverState.Neutral && (river.source in state.mines || river.target in state.mines)
+                }
+                if(try0 != null) return protocol.claimMove(try0.key.source, try0.key.target)
             }
 
         }
