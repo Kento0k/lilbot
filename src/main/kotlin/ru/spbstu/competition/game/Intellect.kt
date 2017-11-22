@@ -11,10 +11,10 @@ class Intellect(val state: State, val protocol: Protocol) {
         // Da best strategy ever!
 
         // If there is a free river near a mine, take it!
-//        val try0 = state.rivers.entries.find { (river, riverState) ->
-//            riverState == RiverState.Neutral && (river.source in state.mines || river.target in state.mines)
-//        }
-//        if(try0 != null) return protocol.claimMove(try0.key.source, try0.key.target)
+        val try0 = state.rivers.entries.find { (river, riverState) ->
+            riverState == RiverState.Neutral && (river.source in state.mines || river.target in state.mines)
+        }
+        if(try0 != null) return protocol.claimMove(try0.key.source, try0.key.target)
 
 
 
