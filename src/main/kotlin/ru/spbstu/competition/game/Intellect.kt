@@ -4,15 +4,19 @@ import ru.spbstu.competition.protocol.Protocol
 
 class Intellect(val state: State, val protocol: Protocol) {
 
+
+
     fun makeMove() {
         // Joe is like super smart!
         // Da best strategy ever!
 
         // If there is a free river near a mine, take it!
-        val try0 = state.rivers.entries.find { (river, riverState) ->
-            riverState == RiverState.Neutral && (river.source in state.mines || river.target in state.mines)
-        }
-        if(try0 != null) return protocol.claimMove(try0.key.source, try0.key.target)
+//        val try0 = state.rivers.entries.find { (river, riverState) ->
+//            riverState == RiverState.Neutral && (river.source in state.mines || river.target in state.mines)
+//        }
+//        if(try0 != null) return protocol.claimMove(try0.key.source, try0.key.target)
+
+
 
         // Look at all our pointsees
         val ourSites = state
