@@ -22,6 +22,8 @@ class State {
         for((id, x, y) in setup.map.sites) {
             coordinates[id] = Pairs(x, y)
         }
+        val initComponent = Component()
+        linkComponents.add(initComponent)
         for(river in setup.map.rivers) {
             rivers[river] = RiverState.Neutral
             for(component in linkComponents) {
